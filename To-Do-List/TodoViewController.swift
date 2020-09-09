@@ -18,7 +18,7 @@ class TodoViewController: UITableViewController{
     }
 
     
-    let itemsArray = ["1","2","3","4"]
+    var itemsArray = ["1","2","3","4"]
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsArray.count
@@ -44,7 +44,35 @@ class TodoViewController: UITableViewController{
     }
     
   
-  
-
+    @IBAction func addItem(_ sender: UIBarButtonItem) {
+            var item = ""
+            let message = UIAlertController(title: "Add new item", message:"add new item in the list", preferredStyle: UIAlertController.Style.alert)
+            message.addTextField { (textField) in
+                textField.placeholder = "Enter your item"
+               
+            }
+        
+        let action = UIAlertAction(title: "OK", style: .default) { (action) in
+                                print("hello")
+                               
+                                }
+        let cancel  = UIAlertAction(title: "Cancel", style: .default) { (action) in
+                                 print("cancel")
+                                 
+                             }
+        message.addAction(action)
+        message.addAction(cancel)
+        present(message, animated: true, completion: nil)
 }
+           
+            
+       
+            
+       
+        
+        }
+    
+
+    
+
 
