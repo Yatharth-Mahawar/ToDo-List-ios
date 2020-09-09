@@ -9,16 +9,33 @@
 import UIKit
 
 class TodoViewController: UITableViewController{
+    
+    var itemsArray = [Item]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
+        var newItem = Item()
+        newItem.title = "Eggs"
+        itemsArray.append(newItem)
+        
+        var newItem2 = Item()
+        newItem.title = "Eggs"
+        itemsArray.append(newItem)
+        
+        var newItem3 = Item()
+        newItem.title = "Eggs"
+   
+        
+        
+        
     }
 
     
-    var itemsArray = ["1","2","3","4"]
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsArray.count
@@ -26,8 +43,15 @@ class TodoViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoToCell", for: indexPath)
-        cell.textLabel?.text = itemsArray[indexPath.row]
-
+        cell.textLabel?.text = itemsArray[indexPath.row].title
+        
+        if itemsArray[indexPath.row].done == true {
+            cell.accessoryType = .checkmark
+        }
+        
+        else {
+            cell.accessoryType = .none
+        }
         
         return cell
        
@@ -35,12 +59,9 @@ class TodoViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if self.tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            self.tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        }
-        else {
-            self.tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+     
+        itemsArray[indexPath.row].done = !itemsArray[indexPath.row].done
+        tableView.reloadData()
     }
     
   
