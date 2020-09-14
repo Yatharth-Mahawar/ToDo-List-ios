@@ -7,33 +7,24 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoViewController: UITableViewController{
     
     var itemsArray = [Item]()
-
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-        
-        var newItem = Item()
-        newItem.title = "Eggs"
-        itemsArray.append(newItem)
-        
-        var newItem2 = Item()
-        newItem.title = "Eggs"
-        itemsArray.append(newItem)
-        
-        var newItem3 = Item()
-        newItem.title = "Eggs"
-   
-        
-        
-        
+       
+    
     }
-
+    
     
     
     
@@ -45,55 +36,80 @@ class TodoViewController: UITableViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoToCell", for: indexPath)
         cell.textLabel?.text = itemsArray[indexPath.row].title
         
-        if itemsArray[indexPath.row].done == true {
-            cell.accessoryType = .checkmark
-        }
-        
-        else {
-            cell.accessoryType = .none
-        }
+        cell.accessoryType = itemsArray[indexPath.row].done ? .checkmark : .none
         
         return cell
-       
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-     
+        
         itemsArray[indexPath.row].done = !itemsArray[indexPath.row].done
-        tableView.reloadData()
+        self.saveItem()
+        
     }
     
-  
+    
     @IBAction func addItem(_ sender: UIBarButtonItem) {
-            var item = ""
-            let message = UIAlertController(title: "Add new item", message:"add new item in the list", preferredStyle: UIAlertController.Style.alert)
+        var text_Field = UITextField()
+        let message = UIAlertController(title: "Add new item", message:"add new item in the list", preferredStyle: UIAlertController.Style.alert)
             message.addTextField { (textField) in
-                textField.placeholder = "Enter your item"
-               
-            }
+            textField.placeholder = "Enter your item"
+                text_Field = textField
+            
+        }
         
         let action = UIAlertAction(title: "OK", style: .default) { (action) in
-                                print("hello")
-                               
-                                }
+            let newItem = Item(context: self.context)
+            newItem.title = text_Field.text!
+            newItem.done = false
+            self.itemsArray.append(newItem)
+            self.saveItem()
+            
+            
+            
+        }
         let cancel  = UIAlertAction(title: "Cancel", style: .default) { (action) in
-                                 print("cancel")
-                                 
-                             }
+            print("cancel")
+            
+        }
         message.addAction(action)
         message.addAction(cancel)
         present(message, animated: true, completion: nil)
-}
-           
-            
-       
-            
-       
+    }
+    
+    
+    func saveItem() {
         
+        do {
+            try context.save()
         }
+        catch {
+            print("hello error\(error)")
+        }
+        self.tableView.reloadData()
+    }
     
+//    func loadData(){
+//
+//        if let data = try? Data(contentsOf: dataFilePath!) {
+//        let decoder = PropertyListDecoder()
+//        do {
+//
+//            itemsArray = try decoder.decode([Item].self, from: data)
+//
+//    }
+//        catch {
+//            print(error)
+//        }
+//        }
+//
+//}
 
-    
 
 
+
+
+
+}
