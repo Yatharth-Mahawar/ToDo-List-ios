@@ -21,8 +21,9 @@ class TodoViewController: UITableViewController{
         // Do any additional setup after loading the view.
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-       
-    
+        loadData()
+        
+        
     }
     
     
@@ -54,9 +55,9 @@ class TodoViewController: UITableViewController{
     @IBAction func addItem(_ sender: UIBarButtonItem) {
         var text_Field = UITextField()
         let message = UIAlertController(title: "Add new item", message:"add new item in the list", preferredStyle: UIAlertController.Style.alert)
-            message.addTextField { (textField) in
+        message.addTextField { (textField) in
             textField.placeholder = "Enter your item"
-                text_Field = textField
+            text_Field = textField
             
         }
         
@@ -91,25 +92,29 @@ class TodoViewController: UITableViewController{
         self.tableView.reloadData()
     }
     
-//    func loadData(){
-//
-//        if let data = try? Data(contentsOf: dataFilePath!) {
-//        let decoder = PropertyListDecoder()
-//        do {
-//
-//            itemsArray = try decoder.decode([Item].self, from: data)
-//
-//    }
-//        catch {
-//            print(error)
-//        }
-//        }
-//
-//}
+    func loadData(with request:NSFetchRequest<Item> = Item.fetchRequest()){
+        
+        
+        do {
+            
+            itemsArray = try context.fetch(request)
+        }
+            
+        catch {
+            print(error)
+        }
+        
+        tableView.reloadData()
+    }
+    
+}
 
-
-
-
-
-
+extension TodoViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request:NSFetchRequest<Item> = Item.fetchRequest()
+        request.predicate = NSPredicate(format: "title contains [cd] %@", searchBar.text!)
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        loadData(with: request)
+       
+    }
 }
