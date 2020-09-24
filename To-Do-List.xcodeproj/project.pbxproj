@@ -16,6 +16,7 @@
 		09281CCA250417D500B86721 /* To_Do_ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09281CC9250417D500B86721 /* To_Do_ListTests.swift */; };
 		09281CD5250417D500B86721 /* To_Do_ListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09281CD4250417D500B86721 /* To_Do_ListUITests.swift */; };
 		099E2F2C250F85B6005216B6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 099E2F2A250F85B6005216B6 /* DataModel.xcdatamodeld */; };
+		09CAF590251CCACE0050CC74 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CAF58F251CCACE0050CC74 /* CategoryTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		09281CD4250417D500B86721 /* To_Do_ListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_ListUITests.swift; sourceTree = "<group>"; };
 		09281CD6250417D500B86721 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		099E2F2B250F85B6005216B6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		09CAF58F251CCACE0050CC74 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				09281CB6250417D400B86721 /* TodoViewController.swift */,
+				09CAF58F251CCACE0050CC74 /* CategoryTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			files = (
 				099E2F2C250F85B6005216B6 /* DataModel.xcdatamodeld in Sources */,
 				09281CB7250417D400B86721 /* TodoViewController.swift in Sources */,
+				09CAF590251CCACE0050CC74 /* CategoryTableViewController.swift in Sources */,
 				09281CB3250417D400B86721 /* AppDelegate.swift in Sources */,
 				09281CB5250417D400B86721 /* SceneDelegate.swift in Sources */,
 			);

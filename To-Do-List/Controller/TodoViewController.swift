@@ -12,6 +12,7 @@ import CoreData
 class TodoViewController: UITableViewController{
     
     var itemsArray = [Item]()
+    
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -21,7 +22,7 @@ class TodoViewController: UITableViewController{
         // Do any additional setup after loading the view.
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-        loadData()
+
         
         
     }
@@ -104,7 +105,7 @@ class TodoViewController: UITableViewController{
             print(error)
         }
         
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
 }
