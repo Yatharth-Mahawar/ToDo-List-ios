@@ -66,6 +66,7 @@ class CategoryTableViewController: UITableViewController {
     func loadData(with request:NSFetchRequest<Category> = Category.fetchRequest()){
         
         
+        
         do {
             
             categories = try context.fetch(request)
@@ -80,6 +81,17 @@ class CategoryTableViewController: UITableViewController {
     
 
     // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "GoToItems", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TodoViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+        destinationVC.selectedCategory = categories[indexPath.row]
+        }
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell",for: indexPath)

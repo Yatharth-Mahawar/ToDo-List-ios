@@ -12,6 +12,11 @@ import CoreData
 class TodoViewController: UITableViewController{
     
     var itemsArray = [Item]()
+    var selectedCategory : Category? {
+        didSet{
+            loadData()
+        }
+    }
     
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -56,7 +61,7 @@ class TodoViewController: UITableViewController{
     @IBAction func addItem(_ sender: UIBarButtonItem) {
         var text_Field = UITextField()
         let message = UIAlertController(title: "Add new item", message:"add new item in the list", preferredStyle: UIAlertController.Style.alert)
-        message.addTextField { (textField) in
+            message.addTextField { (textField) in
             textField.placeholder = "Enter your item"
             text_Field = textField
             
@@ -66,6 +71,8 @@ class TodoViewController: UITableViewController{
             let newItem = Item(context: self.context)
             newItem.title = text_Field.text!
             newItem.done = false
+            newItem.parentCategory = self.selectedCategory
+            
             self.itemsArray.append(newItem)
             self.saveItem()
             
@@ -93,8 +100,18 @@ class TodoViewController: UITableViewController{
         self.tableView.reloadData()
     }
     
-    func loadData(with request:NSFetchRequest<Item> = Item.fetchRequest()){
+    func loadData(with request:NSFetchRequest<Item> = Item.fetchRequest(),predicate:NSPredicate? = nil){
         
+        
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@",selectedCategory!.name!)
+        
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate,additionalPredicate])
+        }
+        
+        else {
+            request.predicate = categoryPredicate
+        }
         
         do {
             
@@ -113,9 +130,9 @@ class TodoViewController: UITableViewController{
 extension TodoViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request:NSFetchRequest<Item> = Item.fetchRequest()
-        request.predicate = NSPredicate(format: "title contains [cd] %@", searchBar.text!)
+        let predicate = NSPredicate(format: "title contains [cd] %@", searchBar.text!)
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-        loadData(with: request)
+        loadData(with: request,predicate: predicate)
        
     }
     
