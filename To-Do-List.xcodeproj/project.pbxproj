@@ -11,10 +11,10 @@
 		09281CB5250417D400B86721 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09281CB4250417D400B86721 /* SceneDelegate.swift */; };
 		09281CB7250417D400B86721 /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09281CB6250417D400B86721 /* TodoViewController.swift */; };
 		09281CBA250417D400B86721 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09281CB8250417D400B86721 /* Main.storyboard */; };
-		09281CBC250417D500B86721 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09281CBB250417D500B86721 /* Assets.xcassets */; };
 		09281CBF250417D500B86721 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09281CBD250417D500B86721 /* LaunchScreen.storyboard */; };
 		09281CCA250417D500B86721 /* To_Do_ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09281CC9250417D500B86721 /* To_Do_ListTests.swift */; };
 		09281CD5250417D500B86721 /* To_Do_ListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09281CD4250417D500B86721 /* To_Do_ListUITests.swift */; };
+		09B20C5725208517009CCB95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B20C5625208517009CCB95 /* Assets.xcassets */; };
 		09CAF590251CCACE0050CC74 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CAF58F251CCACE0050CC74 /* CategoryTableViewController.swift */; };
 		09CFCFE9251F190400B51EDC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CFCFE8251F190400B51EDC /* Item.swift */; };
 		09CFCFEE251F191800B51EDC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CFCFED251F191800B51EDC /* Category.swift */; };
@@ -44,7 +44,6 @@
 		09281CB4250417D400B86721 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		09281CB6250417D400B86721 /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		09281CB9250417D400B86721 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		09281CBB250417D500B86721 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09281CBE250417D500B86721 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09281CC0250417D500B86721 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09281CC5250417D500B86721 /* To-Do-ListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "To-Do-ListTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +52,7 @@
 		09281CD0250417D500B86721 /* To-Do-ListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "To-Do-ListUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09281CD4250417D500B86721 /* To_Do_ListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_ListUITests.swift; sourceTree = "<group>"; };
 		09281CD6250417D500B86721 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09B20C5625208517009CCB95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
 		09BFEA47251E3A6500B07253 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../../Downloads/realm-swift-5.4.3/ios/swift-12.0/Realm.framework"; sourceTree = "<group>"; };
 		09BFEA48251E3A6500B07253 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../../Downloads/realm-swift-5.4.3/ios/swift-12.0/RealmSwift.framework"; sourceTree = "<group>"; };
 		09CAF58F251CCACE0050CC74 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
@@ -145,9 +145,9 @@
 				0902D9812508CA0200EB5912 /* Model */,
 				0902D97F2508C9D000EB5912 /* Controller */,
 				0902D9802508C9E800EB5912 /* View */,
-				09281CBB250417D500B86721 /* Assets.xcassets */,
 				09281CBD250417D500B86721 /* LaunchScreen.storyboard */,
 				09281CC0250417D500B86721 /* Info.plist */,
+				09B20C5625208517009CCB95 /* Assets.xcassets */,
 			);
 			path = "To-Do-List";
 			sourceTree = "<group>";
@@ -297,7 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09281CBF250417D500B86721 /* LaunchScreen.storyboard in Resources */,
-				09281CBC250417D500B86721 /* Assets.xcassets in Resources */,
+				09B20C5725208517009CCB95 /* Assets.xcassets in Resources */,
 				09281CBA250417D400B86721 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

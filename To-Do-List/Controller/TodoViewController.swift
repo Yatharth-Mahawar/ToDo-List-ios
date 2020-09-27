@@ -89,6 +89,7 @@ class TodoViewController: UITableViewController{
                     try self.realm.write{
                     let newItem = Item()
                     newItem.title = text_Field.text!
+                        newItem.date = Date()
                     currentCategory.items.append(newItem)
                     }
                 
@@ -137,24 +138,22 @@ class TodoViewController: UITableViewController{
 
 }
 
-//extension TodoViewController: UISearchBarDelegate {
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        let request:NSFetchRequest<Item> = Item.fetchRequest()
-//        let predicate = NSPredicate(format: "title contains [cd] %@", searchBar.text!)
-//        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-//        loadData(with: request,predicate: predicate)
-//
-//    }
-//
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//          if searchBar.text?.count == 0 {
-//                  loadData()
-//
-//                  DispatchQueue.main.async {
-//                      searchBar.resignFirstResponder()
-//                  }
-//
-//              }
-//    }
-//}
+extension TodoViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        itemsArray = itemsArray?.filter("title CONTAINS[cd] %@",searchBar.text!).sorted(byKeyPath: "date", ascending: true)
+        tableView.reloadData()
+
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+          if searchBar.text?.count == 0 {
+                  loadData()
+
+                  DispatchQueue.main.async {
+                      searchBar.resignFirstResponder()
+                  }
+
+              }
+    }
+}
 

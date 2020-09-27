@@ -8,9 +8,11 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 
-class CategoryTableViewController: UITableViewController {
+
+class CategoryTableViewController: UITableViewController{
 
     var categories: Results<Category>?
     let realm = try! Realm()
@@ -20,6 +22,7 @@ class CategoryTableViewController: UITableViewController {
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         loadData()
+        tableView.rowHeight = 80
 
 
     }
@@ -82,6 +85,7 @@ class CategoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "GoToItems", sender: self)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -92,8 +96,9 @@ class CategoryTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell",for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell",for: indexPath) as! SwipeTableViewCell
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Category Added"
+        cell.delegate = self
         return cell
     }
 
@@ -102,6 +107,25 @@ class CategoryTableViewController: UITableViewController {
         categories?.count ?? 1
     }
 
+
+
+}
+
+extension CategoryTableViewController: SwipeTableViewCellDelegate {
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+           print("item deleted")
+        }
+
+        // customize the action appearance
+        deleteAction.image = UIImage(named: "delete")
+
+        return [deleteAction]
+    }
+    
 
 
 }
