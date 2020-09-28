@@ -9,6 +9,9 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
+import ChameleonFramework
+
+
 
 
 
@@ -23,9 +26,11 @@ class CategoryTableViewController: UITableViewController{
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         loadData()
         tableView.rowHeight = 80
+        tableView.separatorStyle = .none
 
 
     }
+    
     
     @IBAction func addCategory(_ sender: UIBarButtonItem) {
         var text_Field = UITextField()
@@ -39,6 +44,7 @@ class CategoryTableViewController: UITableViewController{
         let action = UIAlertAction(title: "OK", style: .default) { (action) in
             let newItem = Category()
             newItem.name = text_Field.text!
+            newItem.color = UIColor.randomFlat().hexValue()
             self.save(category: newItem)
 
         }
@@ -98,6 +104,14 @@ class CategoryTableViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell",for: indexPath) as! SwipeTableViewCell
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Category Added"
+        if let categoriesCound = categories?.count {
+        cell.textLabel?.text = categories?[indexPath.row].name ?? "No Category Added"
+        cell.backgroundColor = UIColor(hexString:categories?[indexPath.row].color ?? "#3298db")
+            guard let backgorundColor = UIColor(hexString:categories![indexPath.row].color) else {(fatalError())}
+        cell.textLabel?.textColor = ContrastColorOf(backgorundColor, returnFlat: true)
+        
+        }
+        
         cell.delegate = self
         return cell
     }
@@ -117,7 +131,16 @@ extension CategoryTableViewController: SwipeTableViewCellDelegate {
         guard orientation == .right else { return nil }
 
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-           print("item deleted")
+            if let categoryForDelete = self.categories?[indexPath.row] {
+                do {
+                   try  self.realm.write{
+                    self.realm.delete(categoryForDelete)
+                    }
+                }
+                catch {
+                    print("error deleting items \(error)")
+                }
+            }
         }
 
         // customize the action appearance
@@ -126,6 +149,11 @@ extension CategoryTableViewController: SwipeTableViewCellDelegate {
         return [deleteAction]
     }
     
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        return options
+    }
 
 
 }
